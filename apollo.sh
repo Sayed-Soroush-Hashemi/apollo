@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 playlist_path='playlist.txt'
 tmp_dir='.tmp'
