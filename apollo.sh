@@ -36,6 +36,19 @@ case "${1}" in
 			"edit" )
 				nano "${playlist_path}"
 				;;
+			"clear" )
+				rm "${playlist_path}"
+				touch "${playlist_path}"
+				;;
+
+			"add" )
+				args=( "$@" )
+				for i in `seq 2 ${#args}`
+				do
+					abs_path=`readlink -f "${args[$i]}"`
+					echo "$abs_path" >> "${playlist_path}"
+				done
+				;;
 		esac
 		;;
 esac
