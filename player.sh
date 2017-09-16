@@ -21,5 +21,9 @@ while [ 1 ] ; do
 	track_basename=`basename "$track_path"`
 	rm -rf "${1}"/*.wav
 	ffmpeg -i "$track_path" "${1}/${track_basename}.wav" < /dev/null
-	aplay "${1}/${track_basename}.wav" < /dev/null 
+	aplay "${1}/${track_basename}.wav" < /dev/null &
+	echo $! > "${3}"
+	while [[ `ps cax | grep $!` ]] ; do
+		sleep 2
+	done
 done
