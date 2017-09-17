@@ -1,9 +1,15 @@
 #!/bin/bash
 
-playlist_path='playlist.txt'
-tmp_dir='.tmp'
-player_pid_file_path='.tmp/player.pid'
-cur_track_pid_file_path='.tmp/cur_track.pid'
+project_dir=~/.apollo
+playlist_path="${project_dir}/playlist.txt"
+tmp_dir="${project_dir}/.tmp"
+player_pid_file_path="${project_dir}/.tmp/player.pid"
+cur_track_pid_file_path="${project_dir}/.tmp/cur_track.pid"
+
+if [ ! -e ${project_dir} ] ; then 
+	mkdir ${project_dir}
+	mkdir ${tmp_dir}
+fi
 
 case "${1}" in
 	"player" )
