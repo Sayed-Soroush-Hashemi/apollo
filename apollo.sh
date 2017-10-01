@@ -35,6 +35,12 @@ case "${1}" in
 				cur_track_pid=`cat "${cur_track_pid_file_path}"`
 				kill ${cur_track_pid}
 				;;
+			* )
+				echo "wrong command. try:"
+				echo "apollo player play"
+				echo "apollo player stop"
+				echo "apollo player next"
+				;;
 		esac
 		;;
 	"playlist" )
@@ -55,6 +61,16 @@ case "${1}" in
 					echo "$abs_path" >> "${playlist_path}"
 				done
 				;;
+			* ) 
+				echo "apollo playlist edit"
+				echo "apollo playlist clear"
+				echo "apollo playlist add <path/to/your/music(s)>"
+				;;
 		esac
+		;;
+	* ) 
+		echo "wrong command. try:"
+		echo "apollo player"
+		echo "apollo playlist"
 		;;
 esac
