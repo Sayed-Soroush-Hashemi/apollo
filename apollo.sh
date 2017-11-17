@@ -1,25 +1,25 @@
 #!/bin/bash
 
 project_dir=~/.apollo
-playlist_path="${project_dir}/playlist.txt"
+queue_path="${project_dir}/queue.txt"
 tmp_dir="${project_dir}/.tmp"
 player_pid_file_path="${project_dir}/.tmp/player.pid"
 cur_track_pid_file_path="${project_dir}/.tmp/cur_track.pid"
 
-if [ ! -e ${project_dir} ] ; then 
+if [ ! -e ${project_dir} ] ; then
 	mkdir ${project_dir}
 	mkdir ${tmp_dir}
 fi
 
 case "${1}" in
 	"player" )
-		case ${2} in 
+		case ${2} in
 			"play" )
-				bash player.sh "${tmp_dir}" "${playlist_path}" "${cur_track_pid_file_path}" 2> /dev/null &
+				bash player.sh "${tmp_dir}" "${queue_path}" "${cur_track_pid_file_path}" 2> /dev/null &
 				echo $! > "${player_pid_file_path}"
 				;;
 			"stop" )
-				
+
 				if [ -e "${player_pid_file_path}" ] ; then
 					player_pid=`cat "${player_pid_file_path}"`
 					kill ${player_pid}
@@ -43,14 +43,14 @@ case "${1}" in
 				;;
 		esac
 		;;
-	"playlist" )
-		case ${2} in 
+	"queue" )
+		case ${2} in
 			"edit" )
-				nano "${playlist_path}"
+				nano "${queue_path}"
 				;;
 			"clear" )
-				rm "${playlist_path}"
-				touch "${playlist_path}"
+				rm "${queue_path}"
+				touch "${queue_path}"
 				;;
 
 			"add" )
@@ -58,19 +58,19 @@ case "${1}" in
 				for i in `seq 2 ${#args}`
 				do
 					abs_path=`readlink -f "${args[$i]}"`
-					echo "$abs_path" >> "${playlist_path}"
+					echo "$abs_path" >> "${queue_path}"
 				done
 				;;
-			* ) 
-				echo "apollo playlist edit"
-				echo "apollo playlist clear"
-				echo "apollo playlist add <path/to/your/music(s)>"
+			* )
+				echo "apollo queue edit"
+				echo "apollo queue clear"
+				echo "apollo queue add <path/to/your/music(s)>"
 				;;
 		esac
 		;;
-	* ) 
+	* )
 		echo "wrong command. try:"
 		echo "apollo player"
-		echo "apollo playlist"
+		echo "apollo queue"
 		;;
 esac
