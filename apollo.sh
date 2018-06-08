@@ -1,5 +1,9 @@
 #!/bin/bash
 
+src_file=`readlink -f $0`
+src_dir=`dirname $src_file`
+cd $src_dir
+
 project_dir=~/.apollo
 queue_path="${project_dir}/queue.txt"
 tmp_dir="${project_dir}/.tmp"
