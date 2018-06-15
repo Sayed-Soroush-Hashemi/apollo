@@ -2,7 +2,6 @@
 
 src_file=`readlink -f $0`
 src_dir=`dirname $src_file`
-cd $src_dir
 
 project_dir=~/.apollo
 queue_path="${project_dir}/queue.txt"
@@ -17,6 +16,7 @@ fi
 
 case "${1}" in
 	"player" )
+		cd $src_dir
 		case ${2} in
 			"play" )
 				bash player.sh "${tmp_dir}" "${queue_path}" "${cur_track_pid_file_path}" 2> /dev/null &
